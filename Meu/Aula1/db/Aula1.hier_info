@@ -1,0 +1,9 @@
+|Aula1
+a => q.IN0
+b => q.IN1
+c => q.IN1
+d => q.IN0
+e => q.IN1
+q <= q.DB_MAX_OUTPUT_PORT_TYPE
+
+
