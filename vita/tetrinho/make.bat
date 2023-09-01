@@ -10,7 +10,7 @@ SET CC="g++"
 SET OBJS="%BINDIR%/*.o"
 
 IF "%1"=="create" GOTO :CREATE 
-IF "%1"=="clear" GOTO :CLEAR
+IF "%1"=="clean" GOTO :CLEAN
 IF "%1"=="help" GOTO :HELP
 GOTO :MAKE 
 
@@ -20,6 +20,7 @@ GOTO :MAKE
 ECHO make        -^> compile
 ECHO make run    -^> compile ^& run
 ECHO make create -^> create bin, src ^& include dirs
+ECHO make clean  -^> clean bin dir
 ECHO make help   -^> ...
 GOTO :EOF
 
@@ -31,11 +32,11 @@ REM /m = search mask (* wildcard)
 REM /s = recurse into subfolders
 REM /c = command to each file found 
 FORFILES /P %SRCDIR% /M *.%EXT% /S /C "CMD /C ECHO compilando arquivo @file && %CC% -I %INCDIR% -c @relpath -o %BINDIR%\\@FNAME.o"
-CALL ECHO linkando arquivos em %EXE%
+ECHO linkando arquivos em %EXE%
 %CC% %OBJS% -o %EXE%
 ECHO pronto :3
 
-IF "%2"=="run" (
+IF "%1"=="run" (
     CLS
     %EXE%
 )
@@ -50,7 +51,7 @@ GOTO :EOF
 
 
 
-:CLEAR
+:CLEAN
 DEL /Q /S *.o *.exe %BINDIR%\*
 
 
