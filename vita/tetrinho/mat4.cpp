@@ -23,6 +23,12 @@ void Tela::print() {
     }
 };
 
+void Tela::clear() {
+    system("CLS");
+}
+
+// ------------------
+
 Mat4::Mat4() {
     for(int i=0; i<4; i++)
         for(int j=0; j<4; j++)

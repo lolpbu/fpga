@@ -11,6 +11,7 @@ public:
     char tile[H][W];
     Tela();
     void print();
+    void clear();
 };
 
 class Mat4 {
