@@ -1,23 +1,18 @@
 #ifndef _PECA_H
 #define _PECA_H
 
+#include "input.h"
 #include "mat4.h"
 
-class Peca {
-private:
-    Mat4 _arr;
-    Tela* _t;
-
-public:
+struct Peca {
+    Mat4 format;
     int x, y;
     int rotation;
     
-    Peca(Tela* board);
+    Peca(Mat4 mat);
     //Peca& operator=(const Peca& other);
 
-    void print();
-    void set(Mat4 format);
-    void update_board();
+    void move(KEY_STATE input);
 };
 
 #endif

@@ -1,31 +1,37 @@
 #ifndef _MAT_4_H
 #define _MAT_4_H
 
-#define W 12
-#define H 24
-
 #include <iostream>
+#include <vector>
 
-struct Tela {
-public:
-    char tile[H][W];
-    Tela();
-    void print();
-    void clear();
-};
+typedef std::vector<std::vector<char>> char2d;
+
+using namespace std;
 
 class Mat4 {
 private:
-    char _array[4][4];
+    char2d _array;
+    // char2d _array = {
+    //     {' ', ' ', ' ', ' '},
+    //     {' ', ' ', ' ', ' '},
+    //     {' ', ' ', ' ', ' '},
+    //     {' ', ' ', ' ', ' '}
+    // };
+    //char2d _array(4, std::vector<char>(4, ' '));
 
 public:
     Mat4();
-    Mat4(const char (&format)[4][4]);
-    Mat4& operator=(const char other[4][4]);
+    ~Mat4();
+    Mat4(const char2d format);
+    Mat4(const char c);
+    Mat4& operator=(const char2d other);
     Mat4& operator=(const Mat4& other);
 
+    void print();
+
     //static inline Mat4& from(const char format[4][4]) { return Mat4(format); };
-    inline char at(int r, int c) { return this->_array[r][c]; };
+    //inline char at(int r, int c) { return _array.at(r).at(c); };
+    inline char at(int r, int c) { return _array[r][c]; };
 };
 
 #endif

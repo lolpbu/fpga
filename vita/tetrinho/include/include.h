@@ -4,5 +4,6 @@
 #include "input.h"
 #include "mat4.h"
 #include "peca.h"
+#include "tela.h"
 
 #endif
