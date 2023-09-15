@@ -3,7 +3,7 @@
 Tela::Tela() : tile(H, std::vector<char> (W)) {
     for(int i=0; i<H; i++)
         for(int j=0; j<W; j++)
-            tile[i][j] = ' ';
+            tile[i][j] = BG_CHAR;
         
     for(int i=0; i<H; i++) {
         tile[i][0]   = '|';
@@ -28,9 +28,28 @@ void Tela::print() {
     }
 };
 
-void Tela::add_peca(Peca& p) {
-    for(int i=p.y; i<p.y+4; i++)
-        for(int j=p.x; j<p.x+4; j++)
-            if(p.format.at(i, j) != ' ')
-                tile[i][j+1] = p.format.at(i, j);
+void Tela::clear_mov() {
+    for(int i=0; i<H; i++) {
+        for(int j=0; j<W; j++) {
+            if(tile.at(i).at(j) == MOV_CHAR)
+                tile[i][j] = BG_CHAR;
+        }
+    }
 }
+
+// void Tela::add_peca(Peca& p) {
+//     if(!p.sol) {
+//         for(int i=0; i<4; i++)
+//             for(int j=0; j<4; j++)
+//                 if(p.format.at(i, j) == MOV_CHAR)
+//                     tile[i + p.y][j + p.x] = p.format.at(i, j);
+//     }
+//     // while(!p.sol) {
+//     //     clear_mov();
+//     //     p.move(stt);
+//     // }
+//     // for(int i=0; i<4; i++)
+//     //     for(int j=0; j<4; j++)
+//     //         if(p.format.at(i, j) == 'A')
+//     //             tile[i + p.y][j + p.x] = p.format.at(i, j);
+// }

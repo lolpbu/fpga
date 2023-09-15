@@ -4,6 +4,7 @@
 #include <windows.h>
 #include <chrono>
 #include <thread>
+#include <string>
 
 typedef enum {
     RIGHT,
@@ -34,6 +35,16 @@ namespace Input {
         else if(key_up())
             return UP;
         return NOSTT;
+    }
+
+    inline std::string key_state_str(KEY_STATE stt) {
+        switch(stt) {
+            case LEFT:  return "esq";
+            case RIGHT: return "dir";
+            case DOWN:  return "baixo";
+            case UP:    return "cima";
+            default:    return ". . .";
+        }
     }
 };
 

@@ -6,7 +6,8 @@
 
 typedef std::vector<std::vector<char>> char2d;
 
-using namespace std;
+const char MOV_CHAR = '#';
+const char SOL_CHAR = 219;
 
 class Mat4 {
 private:

@@ -3,16 +3,18 @@
 
 #include "input.h"
 #include "mat4.h"
+#include "tela.h"
 
 struct Peca {
     Mat4 format;
     int x, y;
     int rotation;
+    bool sol;
     
-    Peca(Mat4 mat);
+    Peca(Mat4& frmt);
     //Peca& operator=(const Peca& other);
 
-    void move(KEY_STATE input);
+    void move(KEY_STATE input, Tela* t);
 };
 
 #endif

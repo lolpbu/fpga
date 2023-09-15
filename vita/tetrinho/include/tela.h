@@ -3,11 +3,13 @@
 
 #include <iostream>
 #include <vector>
-#include "peca.h"
+//#include "peca.h"
 #include "mat4.h"
 
 #define W 12
 #define H 24
+
+const char BG_CHAR = ' ';
 
 struct Tela {
 public:
@@ -17,8 +19,9 @@ public:
     Tela();
     ~Tela();
 
+    void clear_mov();
     void print();
-    void add_peca(Peca& p);
+    //void add_peca(Peca& p);
 };
 
 #endif
