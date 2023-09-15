@@ -8,6 +8,7 @@ typedef std::vector<std::vector<char>> char2d;
 
 const char MOV_CHAR = '#';
 const char SOL_CHAR = 219;
+const char BG_CHAR = ' ';
 
 class Mat4 {
 private:
@@ -32,7 +33,7 @@ public:
 
     //static inline Mat4& from(const char format[4][4]) { return Mat4(format); };
     //inline char at(int r, int c) { return _array.at(r).at(c); };
-    inline char at(int r, int c) { return _array[r][c]; };
+    inline char at(int r, int c) { return _array.at(r).at(c); };
 };
 
 #endif

@@ -9,8 +9,6 @@
 #define W 12
 #define H 24
 
-const char BG_CHAR = ' ';
-
 struct Tela {
 public:
     char2d tile;

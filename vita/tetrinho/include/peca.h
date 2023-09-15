@@ -15,6 +15,9 @@ struct Peca {
     //Peca& operator=(const Peca& other);
 
     void move(KEY_STATE input, Tela* t);
+
+private:
+    bool coll(KEY_STATE input, Tela* t);
 };
 
 #endif
