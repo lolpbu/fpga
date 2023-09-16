@@ -2,9 +2,8 @@
 #define _INPUT_H
 
 #include <windows.h>
-#include <chrono>
-#include <thread>
 #include <string>
+#include <conio.h>
 
 typedef enum {
     RIGHT,
@@ -14,8 +13,8 @@ typedef enum {
     NOSTT = -1
 } KEY_STATE;
 
-inline void sleep(int ms) { std::this_thread::sleep_for(std::chrono::milliseconds(ms)); }
-inline void clear() { system("CLS"); }
+//inline void clear() { system("CLS"); }
+//inline void clear() { std::cout << "\x1b[2J\x1b[H"; }
 
 namespace Input {
     inline bool key_left()  { return GetKeyState(VK_LEFT)  & 0x8000; };

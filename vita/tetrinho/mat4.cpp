@@ -47,3 +47,10 @@ void Mat4::print() {
         std::cout << std::endl;
     }
 }
+
+void Mat4::setChar(const char c) {
+    for(int i=0; i<4; i++)
+        for(int j=0; j<4; j++)
+            if(_array[i][j] != BG_CHAR)
+                _array[i][j] = c;
+}

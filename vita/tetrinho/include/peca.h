@@ -16,7 +16,7 @@ struct Peca {
 
     void move(KEY_STATE input, Tela* t);
 
-private:
+//private:
     bool coll(KEY_STATE input, Tela* t);
 };
 

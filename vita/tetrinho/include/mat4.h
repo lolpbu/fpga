@@ -30,6 +30,7 @@ public:
     Mat4& operator=(const Mat4& other);
 
     void print();
+    void setChar(const char c);
 
     //static inline Mat4& from(const char format[4][4]) { return Mat4(format); };
     //inline char at(int r, int c) { return _array.at(r).at(c); };
