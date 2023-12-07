@@ -24,19 +24,21 @@ end projeto;
 
 architecture bhv of projeto is
 	
-    component display is
+   component display is
   	port(
     	bin_in: in std_logic_vector(3 downto 0) := "0000";
-      	disp_out: out std_logic_vector(7 downto 0) := "00000000"
+      disp_out: out std_logic_vector(7 downto 0) := "00000000"
   	);
   	end component;
+	
+	component rnd is
+	port(
+		clk, reset: in std_logic;
+		genned: out  std_logic_vector(1 downto 0)
+	);
+	end component;
+
     
-    component rnd is
-    port(
-        clk, reset: in std_logic := '0';
-        genned: out  std_logic_vector(1 downto 0) := "00"
-    );
-    end component;
     
 	 signal clk_rnd: std_logic := '0';
     signal sgn_rnd: std_logic_vector(1 downto 0) := "00";
@@ -47,9 +49,9 @@ architecture bhv of projeto is
     signal prv_a: std_logic_vector(3 downto 0) := "0000";
     signal prv_b: std_logic_vector(3 downto 0) := "0000";
 	 
-    
+    signal a_db, b_db: std_logic := '0';
 begin
-	--RND_DUT: rnd port map(clk, reset, sgn_rnd);
+	RND_DUT: rnd port map(clk_rnd, reset, sgn_rnd);
 	
 	process(clk) is
 		variable clk_count: integer := 0;
@@ -65,47 +67,54 @@ begin
 			end if;
 		end if;
 	end process;
-	
-	process(clk_rnd)
-		begin
-			if clk_rnd'event and clk_rnd = '1' then
-				if sgn_rnd = "00" then
-					sgn_rnd <= "01";
-				elsif sgn_rnd = "01" then
-					sgn_rnd <= "10";
-				elsif sgn_rnd = "10" then
-					sgn_rnd <= "11";
-				elsif sgn_rnd = "11" then
-					sgn_rnd <= "00";
-				end if;
-			end if;
-		end process;
 			
 	
 
-	process(sgn_rnd, a_in, b_in) is
+	process(clk, reset) is
     begin
-    	if sgn_rnd = "11" then
-			if a_in = '0'	then
-				pnt_a <= std_logic_vector(unsigned(prv_a) + 1);
-				prv_a <= pnt_a;
+		if reset = '1' then
+			pnt_a <= "0000";
+			pnt_b <= "0000";
+			prv_a <= "0000";
+			prv_b <= "0000";
+		elsif rising_edge(clk) then
+			if a_in = '1' and a_db = '0' then
+				if sgn_rnd = "11" then
+					pnt_a <= std_logic_vector(unsigned(prv_a) + 1);
+					prv_a <= pnt_a;
+				else
+					if pnt_a /= "0000" then
+					pnt_a <= std_logic_vector(unsigned(prv_a) - 1);
+					prv_a <= pnt_a;
+					end if;
+				end if;
+				
 			end if;
-            
-			if b_in = '0' then
-          	pnt_b <= std_logic_vector(unsigned(prv_b) + 1);
-            prv_b <= pnt_b;
+			
+			if b_in = '1' and b_db = '0' then
+				if sgn_rnd = "11" then
+					pnt_b <= std_logic_vector(unsigned(prv_b) + 1);
+					prv_b <= pnt_b;
+				else
+					if pnt_b /= "0000" then
+					pnt_b <= std_logic_vector(unsigned(prv_b) - 1);
+					prv_b <= pnt_b;
+					end if;
+				end if;
+				
 			end if;
-      else
-        	if a_in = '0' and pnt_a /= "0000" then
-            pnt_a <= std_logic_vector(unsigned(prv_a) - 1);
-            prv_a <= pnt_a;
-         end if;
-            
-         if b_in = '0' and pnt_b /= "0000" then
-           	pnt_b <= std_logic_vector(unsigned(prv_b) - 1);
-            prv_b <= pnt_b;
-         end if;
-      end if;
+			
+			a_db <= a_in;
+			b_db <= b_in;
+			
+			if pnt_a = "1001" or pnt_b = "1001" then
+				pnt_a <= "0000";
+				pnt_b <= "0000";
+				prv_a <= "0000";
+				prv_b <= "0000";
+			end if;
+			
+		end if;
     end process;
     
     DISPA_DUT: display port map(pnt_a, pnt_a_disp);
