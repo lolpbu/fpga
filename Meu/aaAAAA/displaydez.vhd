@@ -5,7 +5,7 @@ entity display_dez is
 port(
 	res_in: in std_logic_vector(5 downto 0);
 	disp_out: out std_logic_vector(7 downto 0));
-end display_uni;
+end display_dez;
 
 architecture disp of display_dez is
 begin
