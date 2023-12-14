@@ -1,6 +1,7 @@
 library ieee;
 use ieee.std_logic_1164.all;
 
+-- entidade do LCD 
 entity lcd is
 port(
 	clk: in std_logic;
@@ -20,7 +21,7 @@ architecture bhv of lcd is
 	type state is (  s0,  s1,  s2,  s3,  s4,  s5,  s6,  s7,
     				 s8,  s9, s10, s11, s12, s13, s14, s15,
                     s16, s17, s18, s19, s20, s21, s22, s23,
-                    s24, s25, s26, sIdle
+                    s24, s25, sIdle
                 );
     
     signal stt: state := s0;
@@ -31,7 +32,7 @@ begin
 	with hour select
     	hour_c <= x"30" when "000000",
                   x"31" when others;
-    
+    -- convertendo os 6 bits para seus valores ascii das dezenas e unidades
     with min select
         min1_c <= x"30" when "000000",--0
                   x"30" when "000001",--1 
@@ -284,6 +285,9 @@ begin
                   x"39" when "111011",--59
                   x"30" when others;
 
+
+
+
 	process(clk) is
     	variable cnt: integer range 0 to 1750000 := 0;
     begin
@@ -427,53 +431,50 @@ begin
                         LCD_RS <= '1';
 
                     -------- : --------
-                    when s20 =>
-                        stt <= s21;
+                    when s19 =>
+                        stt <= s20;
                         LCD_DB <= x"3A";
                         LCD_EN <= '1';
                         LCD_RW <= '0';
                         LCD_RS <= '1';
-                    when s21 =>
-                        stt <= s22;
+                    when s20 =>
+                        stt <= s21;
                         LCD_DB <= x"3A";
                         LCD_EN <= '0';
                         LCD_RW <= '0';
                         LCD_RS <= '1';
                     
                     -------- S1 --------
-                    when s22 =>
-                        stt <= s23;
+                    when s21 =>
+                        stt <= s22;
                         LCD_DB <= sec1_c;
                         LCD_EN <= '1';
                         LCD_RW <= '0';
                         LCD_RS <= '1';
-                    when s23 =>
-                        stt <= s24;
+                    when s22 =>
+                        stt <= s23;
                         LCD_DB <= sec1_c;
                         LCD_EN <= '0';
                         LCD_RW <= '0';
                         LCD_RS <= '1';
                     
                     -------- S2 --------
-                    when s24 =>
-                        stt <= s25;
+                    when s23 =>
+                        stt <= s24;
                         LCD_DB <= sec2_c;
                         LCD_EN <= '1';
                         LCD_RW <= '0';
                         LCD_RS <= '1';
-                    when s25 =>
-                        stt <= s26;
+                    when s24 =>
+                        stt <= s25;
                         LCD_DB <= sec2_c;
                         LCD_EN <= '0';
                         LCD_RW <= '0';
                         LCD_RS <= '1';
                     
-                    when s26 =>
-                        stt <= sIdle;
-                    
-                    when sIdle =>
-                        stt <= sIdle;
-                    
+                    when s25 =>
+                        stt <= s0;
+
                     when others =>
                         stt <= sIdle;
                 end case;
