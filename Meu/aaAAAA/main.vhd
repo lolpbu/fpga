@@ -15,12 +15,13 @@ port(
     LCD_RS: out std_logic; -- command/data select
     LCD_DB: out std_logic_vector(7 downto 0); -- data BUS
 
-    done: out std_logic_vector(9 downto 0) := "0000000000"
+    done: out std_logic_vector(9 downto 0) := "0000000000" -- linha de leds que ligam quando o tempo acaba
 );
 end cronometro;
 
 architecture aaa of cronometro is
 
+	-- componente do lcd
     component LCD is
     port(
         clk: in std_logic;
@@ -42,7 +43,7 @@ architecture aaa of cronometro is
     
 begin
 
-	--clock de 1hz
+	--geracao do clock de 1hz
 	process(clk) is
      	variable cnt: integer := 1;
     begin
@@ -62,7 +63,7 @@ begin
      process(clk_1hz, enable) is
      begin
         
-        	if enable = '0' then
+        	if enable = '0' then -- definicao do tempo para contar
             	if min_sec = '0' then -- segundos
                 	h <= 0;
                     m <= to_integer(unsigned(timer_in)) / 60;
@@ -72,7 +73,7 @@ begin
                     m <= to_integer(unsigned(timer_in)) - (h * 60);
                     s <= 0;
             	end if;
-            elsif rising_edge(clk_1hz) then
+            elsif rising_edge(clk_1hz) then -- contagem
             	if s /= 0 then
                 	s <= s - 1;
                 else
