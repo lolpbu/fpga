@@ -66,9 +66,9 @@ begin
     	clk_1hz <= clk;
 --     	if rising_edge(clk) then
 --         	cnt := cnt + 1;
---             if cnt < 25000000 then
+--             if cnt < 50000000 then
 --             	clk_1hz <= '0';
---             elsif cnt > 25000000 and cnt < 50000000 then
+--             elsif cnt >= 50000000 and cnt < 100000000 then
 --             	clk_1hz <= '1';
 --             else
 --             	cnt := 1;
